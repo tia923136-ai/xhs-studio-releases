@@ -54,11 +54,14 @@ else
     fi
 fi
 
-# ── 2. 停止正在运行的服务（升级场景）──
+# ── 2. 停止并彻底清理旧服务（避免僵尸进程 + plist 冲突）──
 PLIST="$HOME/Library/LaunchAgents/com.xhs-studio.server.plist"
-if [ -f "$PLIST" ]; then
-    launchctl unload "$PLIST" 2>/dev/null || true
-fi
+launchctl unload "$PLIST" 2>/dev/null || true
+launchctl remove com.xhs-studio.server 2>/dev/null || true
+rm -f "$PLIST"
+# 杀掉所有残留的 review_server.py 进程（旧路径可能指向已删除的目录）
+pkill -f "review_server.py" 2>/dev/null || true
+sleep 1
 
 # ── 3. 下载最新包 ──
 echo "[2/5] 下载安装包..."
