@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小红书 Studio - 安装</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --border: #2a2a35;
+    --text: #ffffff;
+    --muted: #8a8a95;
+    --accent: #ff3366;
+    --accent-dim: rgba(255, 51, 102, 0.12);
+    --success: #22c55e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 28px 80px;
+  }
+  .logo {
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 44px;
+  }
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 26px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 10px;
+    vertical-align: -4px;
+  }
+  .step h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .step p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  .cmd-box {
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 13px;
+    color: #e5e5ea;
+    word-break: break-all;
+    position: relative;
+    padding-right: 90px;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .copy-btn:hover { opacity: 0.9; }
+  .copy-btn.copied {
+    background: var(--success);
+  }
+  .kbd {
+    display: inline-block;
+    padding: 2px 7px;
+    background: #2a2a35;
+    border: 1px solid #3a3a45;
+    border-radius: 5px;
+    font-family: "SF Mono", monospace;
+    font-size: 12px;
+    color: #e5e5ea;
+    margin: 0 2px;
+    vertical-align: 1px;
+  }
+  .requirements {
+    background: rgba(255, 51, 102, 0.06);
+    border: 1px solid rgba(255, 51, 102, 0.2);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 32px;
+    font-size: 14px;
+  }
+  .requirements strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .requirements ul {
+    list-style: none;
+    color: var(--muted);
+  }
+  .requirements li {
+    padding: 3px 0;
+  }
+  .requirements li::before {
+    content: "→ ";
+    color: var(--accent);
+    margin-right: 6px;
+  }
+  .requirements a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .requirements a:hover { text-decoration: underline; }
+  .footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+  }
+  .footer a { color: var(--muted); text-decoration: none; }
+  @media (max-width: 540px) {
+    h1 { font-size: 28px; }
+    .container { padding: 36px 20px 60px; }
+    .cmd-box { padding-right: 16px; padding-bottom: 54px; font-size: 12px; }
+    .copy-btn {
+      position: static;
+      transform: none;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">XHS STUDIO</div>
+  <h1>小红书 Studio 安装</h1>
+  <p class="subtitle">三步完成，约 5 分钟 · 仅支持 macOS</p>
+
+  <div class="requirements">
+    <strong>安装前确认</strong>
+    <ul>
+      <li>已安装 <a href="https://comet-china.com/" target="_blank">Comet 浏览器</a></li>
+      <li>已开启梯子（网络代理）</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3><span class="step-num">1</span>打开「终端」</h3>
+    <p>按 <span class="kbd">Cmd</span> + <span class="kbd">空格</span>，输入 <code>终端</code>，回车打开。</p>
+  </div>
+
+  <div class="step">
+    <h3><span class="step-num">2</span>复制安装命令</h3>
+    <p>点下面的按钮复制，再到终端窗口里粘贴（<span class="kbd">Cmd</span>+<span class="kbd">V</span>），按回车。</p>
+    <div class="cmd-box">
+      <span id="cmd">curl -fsSL https://tia923136-ai.github.io/xhs-studio-releases/install.sh | bash</span>
+      <button class="copy-btn" id="copyBtn" onclick="copyCmd()">复制</button>
+    </div>
+  </div>
+
+  <div class="step">
+    <h3><span class="step-num">3</span>等它跑完</h3>
+    <p>首次安装约 3-5 分钟，看到 <strong>✅ 全部完成</strong> 后浏览器会自动打开 <code>localhost:8088</code>。按页面向导输入激活码和密码就可以用了。</p>
+  </div>
+
+  <div class="footer">
+    <p>遇到问题直接把终端截图发给 Tia · <a href="https://github.com/tia923136-ai/xhs-studio-releases/releases" target="_blank">版本历史</a></p>
+  </div>
+</div>
+
+<script>
+  function copyCmd() {
+    const cmd = document.getElementById('cmd').textContent;
+    const btn = document.getElementById('copyBtn');
+    navigator.clipboard.writeText(cmd).then(() => {
+      btn.textContent = '已复制 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '复制';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      const range = document.createRange();
+      range.selectNode(document.getElementById('cmd'));
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      btn.textContent = '已复制 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '复制';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
