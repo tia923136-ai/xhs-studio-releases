@@ -8,6 +8,14 @@ VERSION="${XHS_VERSION:-v9.2}"
 RELEASE_URL="https://github.com/tia923136-ai/xhs-studio-releases/releases/download/${VERSION}/xhs-studio-${VERSION}.zip"
 INSTALL_DIR="$HOME/Desktop/xhs-studio"
 BACKUP_ENV=""
+LEGACY_DIRS=(
+    "$HOME/Desktop/xhs-studio-v9.2"
+    "$HOME/Desktop/xhs-studio-v9.1"
+    "$HOME/Desktop/xhs-studio-v9.0"
+    "$HOME/Desktop/xhs-studio-v9"
+    "$HOME/Desktop/xhs-studio-daxuan"
+)
+FOUND_LEGACY=""
 
 echo ""
 echo "============================================"
@@ -24,14 +32,26 @@ for cmd in curl unzip python3; do
     fi
 done
 
-# ── 1. 保护已有 .env（升级场景）──
+# ── 1. 保护 / 迁移已有 .env（升级场景 or 旧版本迁移）──
 if [ -f "$INSTALL_DIR/.env" ]; then
     echo "[1/5] 检测到已安装版本，备份 .env..."
     BACKUP_ENV=$(mktemp -t xhs-env.XXXXXX)
     cp "$INSTALL_DIR/.env" "$BACKUP_ENV"
     echo "      .env 已备份 ✓"
 else
-    echo "[1/5] 全新安装 → $INSTALL_DIR"
+    for legacy in "${LEGACY_DIRS[@]}"; do
+        if [ -f "$legacy/.env" ]; then
+            echo "[1/5] 发现旧版本 $(basename "$legacy")，迁移激活码和配置..."
+            BACKUP_ENV=$(mktemp -t xhs-env.XXXXXX)
+            cp "$legacy/.env" "$BACKUP_ENV"
+            FOUND_LEGACY="$legacy"
+            echo "      配置已迁移 ✓"
+            break
+        fi
+    done
+    if [ -z "$BACKUP_ENV" ]; then
+        echo "[1/5] 全新安装 → $INSTALL_DIR"
+    fi
 fi
 
 # ── 2. 停止正在运行的服务（升级场景）──
@@ -95,3 +115,17 @@ echo "  访问地址：http://localhost:8088"
 echo "  密码：vivian88"
 echo "  建议收藏此网址到书签栏"
 echo ""
+
+# 提示清理旧目录（不自动删，让客户自己确认）
+if [ -n "$FOUND_LEGACY" ] && [ -d "$FOUND_LEGACY" ]; then
+    echo "  💡 检测到旧版本目录：$FOUND_LEGACY"
+    echo "     激活码已自动迁移到新目录。"
+    echo "     确认新版能正常使用后，可以把旧目录拖进废纸篓。"
+    echo ""
+fi
+
+LEGACY_ZIP="$HOME/Desktop/xhs-studio-v9.2.zip"
+if [ -f "$LEGACY_ZIP" ]; then
+    echo "  💡 桌面上的旧压缩包 xhs-studio-v9.2.zip 也可以删掉了。"
+    echo ""
+fi
